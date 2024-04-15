@@ -1,10 +1,11 @@
+#include "shell.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include "test.h"
 #define BUF 1024
+
 int main(int argc, char *argv[])
 {
 	size_t len = 0;
