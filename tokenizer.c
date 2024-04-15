@@ -1,4 +1,9 @@
 #include "shell.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#define BUF 1024
 
 char **tokenizer(char *args[], char *temp)
 {
