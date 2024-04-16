@@ -3,18 +3,26 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#define BUF 1024
 
-char **tokenizer(char *args[], char *temp)
+char **tokenizer(char *temp, char *delim)
 {
 	int i = 0;
 	char *tokenized;
-
-	tokenized = strtok(temp," ");
+	char **args;
+	
+	args = malloc(sizeof(char *) * MAX_TOK);
+	if (!args || !temp || !delim)
+		return (NULL);	
+	tokenized = strtok(temp, delim);
 	while(tokenized)
 	{
-		args[i] = tokenized;
-		tokenized = strtok(NULL," ");
+		args[i] = strdup(tokenized);
+		if (args[i] == NULL)
+		{
+			free_tab(args);
+			return (NULL);
+		}
+		tokenized = strtok(NULL, delim);
 		i++;
 	}
 	args[i] = NULL;
