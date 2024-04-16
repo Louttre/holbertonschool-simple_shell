@@ -39,7 +39,7 @@ char *check_paths(char *command)
 		check_path = malloc(strlen(paths[i]) + strlen(command) + 2);
 		if (!check_path)
 		{
-			clear(cp_path, paths);
+			clean(cp_path, paths);
 			return (NULL);
 		}
 		sprintf(check_path, "%s/%s", paths[i], command);
@@ -47,12 +47,12 @@ char *check_paths(char *command)
 			free(check_path);
 		else
 		{
-			clear(cp_path, paths);
+			clean(cp_path, paths);
 			return(check_path);
 		}
 		i++;
 	}
-	clear(cp_path, paths);
+	clean(cp_path, paths);
 	return (NULL);
 }
 char *check_command(char *command)
