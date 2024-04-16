@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 {
 	size_t len = 0;
 	char *temp = NULL, **args = NULL;
-	ssize_t nread;
+	ssize_t input;
 	pid_t pid;
 
 	(void)argc, (void)argv;
@@ -22,11 +22,11 @@ int main(int argc, char *argv[])
 	{
 		printf("$ ");
 		fflush(stdout);
-		nread = getline(&temp, &len, stdin);
-		if (nread == -1)
+		input = getline(&temp, &len, stdin);
+		if (input == -1)
 			exit(1);
-		if (temp[nread - 1] == '\n')
-			temp[nread - 1] = '\0';
+		if (temp[input - 1] == '\n')
+			temp[input - 1] = '\0';
 		if (!strlen(temp))
 			continue;
 		args = tokenizer(temp, " ");
