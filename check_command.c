@@ -30,28 +30,29 @@ char *check_paths(char *command)
 		return (NULL);
 	paths = tokenizer(cp_path, ":");
 	if (!paths)
+	{
+		free(cp_path);
 		return (NULL);
+	}
 	while(paths[i])
 	{
 		check_path = malloc(strlen(paths[i]) + strlen(command) + 2);
 		if (!check_path)
 		{
-			free_tab(paths);
+			clear(cp_path, paths);
 			return (NULL);
 		}
 		sprintf(check_path, "%s/%s", paths[i], command);
 		if (access(check_path, X_OK) < 0)
-		{
 			free(check_path);
-		}
 		else
 		{
-			free_tab(paths);
+			clear(cp_path, paths);
 			return(check_path);
 		}
 		i++;
 	}
-	free_tab(paths);
+	clear(cp_path, paths);
 	return (NULL);
 }
 char *check_command(char *command)
