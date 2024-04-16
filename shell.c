@@ -5,19 +5,18 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #define BUF 1024
-
+void clean(char *a, char **b)
+{
+	free(a);
+	free_tab(b);
+}
 int main(int argc, char *argv[])
 {
 	size_t len = 0;
-	char *temp, *args[BUF];
+	char *temp = NULL, **args = NULL;
 	ssize_t nread;
-	/*char *envp[BUF];*/
 	pid_t pid;
 
-	/*
-	 * env = getenv("PATH");
-	 * envp = {env, NULL};
-	 */
 	(void)argc, (void)argv;
 	while (1)
 	{
@@ -30,11 +29,26 @@ int main(int argc, char *argv[])
 			temp[nread - 1] = '\0';
 		if (!strlen(temp))
 			continue;
-		tokenizer(args, temp);
+		args = tokenizer(temp, " ");
+		if (!args)
+		{
+			free(temp);
+			exit(1);
+		}
+		args[0] = check_command(args[0]);
+		if (!args[0])
+		{
+			perror("./shell");
+			clean(temp, args);
+			args = NULL;
+			temp = NULL;
+			continue;
+		}
 		pid = fork();
 		if (pid == -1)
 		{
 			perror("./shell");
+			clean(temp, args);
 			exit(1);
 		}
 		else if (pid == 0)
@@ -42,10 +56,16 @@ int main(int argc, char *argv[])
 			if (execve(args[0], args, NULL) == -1)
 			{
 				perror("./shell");
+				clean(temp, args);
 				exit(1);
 			}
 		}
 		else
+		{
 			wait(NULL);
+			free(args);
+		}
 	}
+	free(temp);
+	return (0);
 }
