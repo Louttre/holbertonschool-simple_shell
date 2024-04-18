@@ -18,10 +18,11 @@ void exit_func(args)
 	free_tab(arg);
 	exit(2);
 }
-void printenv_func(char *arg)
+void printenv_func(char **arg)
 {
 	char **cp_env = environ;
-
+	(void)args;
+	
 	for (; *cp_env; env++)
 	{
 		printf("%s\n", *env);
