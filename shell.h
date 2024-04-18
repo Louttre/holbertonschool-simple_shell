@@ -11,16 +11,20 @@
 
 extern char **environ;
 
-typedef struct builtin
+struct builtin
 {
 	char *builtin_command;
-	int (*func)(char *s);
-} bl_t;
+	void (*func)(char **s);
+};
+typedef builtin bl_t;
 char **tokenizer(char *, char *);
 void free_tab(char **tab);
 int command_is_path(char *command);
 char *check_paths(char *command);
 char *check_command(char *command);
 void clean(char *, char **);
+void check_builtin(char **arg);
+void exit_func(**args);
+void printenv_func(char **arg);
 
 #endif
