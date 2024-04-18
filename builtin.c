@@ -9,11 +9,11 @@ void check_builtin(char **arg)
 
 	for(i = 0; array[i]; i++)
 	{
-		if (strcmp(array[i].command, arg) == 0)
+		if (strcmp(array[i].command, *arg) == 0)
 			return (array[i].func(arg));
 	}
 }
-void exit_func(args)
+void exit_func(char **arg)
 {
 	free_tab(arg);
 	exit(2);
