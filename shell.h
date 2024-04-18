@@ -9,6 +9,8 @@
 #define BUF 1024
 #define MAX_TOK 100
 
+extern char **environ;
+
 char **tokenizer(char *, char *);
 void free_tab(char **tab);
 int command_is_path(char *command);
