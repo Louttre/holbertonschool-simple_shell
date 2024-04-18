@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	char *temp = NULL, **args = NULL;
 	ssize_t input;
 	pid_t pid;
-	int loop = 1;
+	int loop = 1, builtin;
 
 	(void)argc, (void)argv;
 	while (loop)
@@ -36,11 +36,11 @@ int main(int argc, char *argv[])
 			free(temp);
 			exit(1);
 		}
-		if (strcmp(args[0], "exit") == 0)
+		builtin = check_builtin(args);
+		if (builtin)
 		{
 			clean(temp, args);
-			loop = 0;
-			exit(1);
+			continue;
 		}
 		args[0] = check_command(args[0]);
 		if (!args[0])
