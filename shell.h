@@ -24,7 +24,7 @@ char *check_paths(char *command);
 char *check_command(char *command);
 void clean(char *, char **);
 void check_builtin(char **arg);
-void exit_func(**args);
+void exit_func(char **args);
 void printenv_func(char **arg);
 
 #endif
