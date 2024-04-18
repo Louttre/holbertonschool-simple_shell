@@ -16,9 +16,10 @@ int main(int argc, char *argv[])
 	char *temp = NULL, **args = NULL;
 	ssize_t input;
 	pid_t pid;
+	int loop = 1;
 
 	(void)argc, (void)argv;
-	while (1)
+	while (loop)
 	{
 		printf("$ ");
 		fflush(stdout);
@@ -33,6 +34,12 @@ int main(int argc, char *argv[])
 		if (!args)
 		{
 			free(temp);
+			exit(1);
+		}
+		if (strcmp(args[0], "exit") == 0)
+		{
+			clean(temp, args);
+			loop = 0;
 			exit(1);
 		}
 		args[0] = check_command(args[0]);
