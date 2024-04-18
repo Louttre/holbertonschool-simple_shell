@@ -11,6 +11,11 @@
 
 extern char **environ;
 
+typedef struct builtin
+{
+	char *builtin_command;
+	int (*func)(char *s);
+} bl_t;
 char **tokenizer(char *, char *);
 void free_tab(char **tab);
 int command_is_path(char *command);
