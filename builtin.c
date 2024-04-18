@@ -27,4 +27,5 @@ void printenv_func(char **arg)
 	{
 		printf("%s\n", *env);
 	}
+	free_tab(args);
 }
