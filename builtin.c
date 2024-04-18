@@ -10,8 +10,12 @@ void check_builtin(char **arg)
 	for(i = 0; array[i]; i++)
 	{
 		if (strcmp(array[i].command, *arg) == 0)
-			return (array[i].func(arg));
+		{
+			array[i].func(arg);
+			return (1);
+		}
 	}
+	return (0);
 }
 void exit_func(char **arg)
 {
