@@ -1,13 +1,15 @@
-void check_builtin(char **arg)
+#include "shell.h"
+
+int check_builtin(char **arg)
 {
-	bl_t array = {
+	bl_t array[] = {
 		{"exit", exit_func},
 		{"env", printenv_func},
 		{NULL, NULL}
 	};
-	int i, j;
+	int i;
 
-	for(i = 0; array[i]; i++)
+	for(i = 0; array[i].command; i++)
 	{
 		if (strcmp(array[i].command, *arg) == 0)
 		{
@@ -25,11 +27,10 @@ void exit_func(char **arg)
 void printenv_func(char **arg)
 {
 	char **cp_env = environ;
-	(void)args;
+	(void)arg;
 	
-	for (; *cp_env; env++)
+	for (; *cp_env; cp_env++)
 	{
-		printf("%s\n", *env);
+		printf("%s\n", *cp_env);
 	}
-	free_tab(args);
 }
