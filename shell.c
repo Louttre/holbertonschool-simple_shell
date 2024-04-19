@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 		else
 		{
 			wait(NULL);
-			free(args);
+			free_tab(args);
 		}
 	}
 	free(temp);
