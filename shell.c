@@ -40,6 +40,8 @@ int main(int argc, char *argv[])
 		if (builtin)
 		{
 			clean(temp, args);
+			temp = NULL;
+			args = NULL;
 			continue;
 		}
 		args[0] = check_command(args[0]);
