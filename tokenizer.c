@@ -9,7 +9,7 @@ char **tokenizer(char *temp, char *delim)
 	int i = 0;
 	char *tokenized;
 	char **args;
-	
+
 	args = malloc(sizeof(char *) * MAX_TOK);
 	if (!args || !temp || !delim)
 		return (NULL);	

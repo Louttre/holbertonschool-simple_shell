@@ -48,6 +48,7 @@ char *check_paths(char *command)
 		else
 		{
 			clean(cp_path, paths);
+			free(command);
 			return(check_path);
 		}
 		i++;
