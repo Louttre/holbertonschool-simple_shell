@@ -1,6 +1,6 @@
 #include "shell.h"
 
-int check_builtin(char **arg)
+int check_builtin(char **arg, char *temp)
 {
 	bl_t array[] = {
 		{"exit", exit_func},
@@ -13,21 +13,21 @@ int check_builtin(char **arg)
 	{
 		if (strcmp(array[i].command, *arg) == 0)
 		{
-			array[i].func(arg);
+			array[i].func(arg, temp);
 			return (1);
 		}
 	}
 	return (0);
 }
-void exit_func(char **arg)
+void exit_func(char **arg, char *temp)
 {
-	free_tab(arg);
+	clean(temp, arg);
 	exit(2);
 }
-void printenv_func(char **arg)
+void printenv_func(char **arg, char *temp)
 {
 	char **cp_env = environ;
-	(void)arg;
+	(void)arg, (void)temp;
 	
 	for (; *cp_env; cp_env++)
 	{

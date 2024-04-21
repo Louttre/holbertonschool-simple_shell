@@ -25,7 +25,11 @@ int main(int argc, char *argv[])
 		fflush(stdout);
 		input = getline(&temp, &len, stdin);
 		if (input == -1)
+		{
+			if (feof(stdin) && temp)
+				free(temp);
 			exit(1);
+		}
 		if (temp[input - 1] == '\n')
 			temp[input - 1] = '\0';
 		if (!strlen(temp))
@@ -36,7 +40,7 @@ int main(int argc, char *argv[])
 			free(temp);
 			exit(1);
 		}
-		builtin = check_builtin(args);
+		builtin = check_builtin(args, temp);
 		if (builtin)
 		{
 			clean(temp, args);
