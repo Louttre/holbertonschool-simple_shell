@@ -6,8 +6,10 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <errno.h>
 #define BUF 2048
 #define MAX_TOK 100
+
 extern char **environ;
 
 typedef struct

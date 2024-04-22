@@ -54,6 +54,7 @@ char *check_paths(char *command)
 		i++;
 	}
 	clean(cp_path, paths);
+	fprintf(stderr, "./hsh: %d: %s: %s\n", errno, command, strerror(errno));
 	return (NULL);
 }
 char *check_command(char *command)
