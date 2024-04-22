@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#define BUF 1024
 void clean(char *a, char **b)
 {
 	free(a);
@@ -14,20 +13,25 @@ int main(int argc, char *argv[])
 {
 	size_t len = 0;
 	char *temp = NULL, **args = NULL;
-	ssize_t nread;
+	ssize_t input;
 	pid_t pid;
-	int loop = 1;
+	int loop = 1, builtin;
 
 	(void)argc, (void)argv;
 	while (loop)
 	{
 		printf("$ ");
 		fflush(stdout);
-		nread = getline(&temp, &len, stdin);
-		if (nread == -1)
+		input = getline(&temp, &len, stdin);
+		if (input == -1)
+		{
+			if (feof(stdin) && temp)
+				free(temp);
+			printf("\n");
 			exit(1);
-		if (temp[nread - 1] == '\n')
-			temp[nread - 1] = '\0';
+		}
+		if (temp[input - 1] == '\n')
+			temp[input - 1] = '\0';
 		if (!strlen(temp))
 			continue;
 		args = tokenizer(temp, " ");
@@ -36,11 +40,13 @@ int main(int argc, char *argv[])
 			free(temp);
 			exit(1);
 		}
-		if (strcmp(args[0], "exit") == 0)
+		builtin = check_builtin(args, temp);
+		if (builtin)
 		{
 			clean(temp, args);
-			loop = 0;
-			exit(1);
+			temp = NULL;
+			args = NULL;
+			continue;
 		}
 		args[0] = check_command(args[0]);
 		if (!args[0])
@@ -70,7 +76,7 @@ int main(int argc, char *argv[])
 		else
 		{
 			wait(NULL);
-			free(args);
+			free_tab(args);
 		}
 	}
 	free(temp);

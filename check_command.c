@@ -24,7 +24,7 @@ char *check_paths(char *command)
 	char *check_path = NULL;
 	int i = 0;
 
-	path = getenv("PATH");
+	path = _getenv("PATH");
 	cp_path = strdup(path);
 	if (!path || !cp_path)
 		return (NULL);
@@ -48,6 +48,7 @@ char *check_paths(char *command)
 		else
 		{
 			clean(cp_path, paths);
+			free(command);
 			return(check_path);
 		}
 		i++;
