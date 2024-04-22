@@ -53,8 +53,8 @@ char *check_paths(char *command)
 		}
 		i++;
 	}
+	fprintf(stderr, "./hsh: %d: %s: %s\n", errno, command, "not found");
 	clean(cp_path, paths);
-	fprintf(stderr, "./hsh: %d: %s: %s\n", errno, command, strerror(errno));
 	return (NULL);
 }
 char *check_command(char *command)

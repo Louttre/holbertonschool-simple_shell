@@ -29,7 +29,8 @@ int main(int argc, char *argv[])
 		{
 			if (feof(stdin) && temp)
 				free(temp);
-			printf("\n");
+			if (isatty(STDIN_FILENO))
+				printf("\n");
 			exit(1);
 		}
 		if (temp[input - 1] == '\n')
