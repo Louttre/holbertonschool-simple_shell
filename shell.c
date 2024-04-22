@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#define BUF 1024
 void clean(char *a, char **b)
 {
 	free(a);
@@ -28,6 +27,7 @@ int main(int argc, char *argv[])
 		{
 			if (feof(stdin) && temp)
 				free(temp);
+			printf("\n");
 			exit(1);
 		}
 		if (temp[input - 1] == '\n')

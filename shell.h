@@ -6,9 +6,8 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#define BUF 1024
+#define BUF 2048
 #define MAX_TOK 100
-
 extern char **environ;
 
 typedef struct
@@ -25,5 +24,6 @@ void clean(char *, char **);
 int check_builtin(char **arg, char *temp);
 void exit_func(char **args, char *temp);
 void printenv_func(char **arg, char *temp);
+char *_getenv(char *env_variable);
 
 #endif

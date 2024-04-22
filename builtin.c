@@ -5,6 +5,7 @@ int check_builtin(char **arg, char *temp)
 	bl_t array[] = {
 		{"exit", exit_func},
 		{"env", printenv_func},
+		{"printenv", printenv_func},
 		{NULL, NULL}
 	};
 	int i;
