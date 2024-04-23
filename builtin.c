@@ -11,7 +11,7 @@ int check_builtin(char **arg, char *temp)
 	int i;
 	
 	if (!*arg)
-		return (0);
+		return (1);
 	for(i = 0; array[i].command; i++)
 	{
 		if (strcmp(array[i].command, *arg) == 0)

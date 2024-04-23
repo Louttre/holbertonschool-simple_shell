@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 			printf("$ ");
 		fflush(stdout);
 		input = getline(&temp, &len, stdin);
-		if (input == -1)
+		if (input == -1 || feof(stdin))
 		{
 			if (temp)
 				free(temp);
