@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 		input = getline(&temp, &len, stdin);
 		if (input == -1)
 		{
-			if (feof(stdin) && temp)
+			if (temp)
 				free(temp);
 			if (isatty(STDIN_FILENO))
 				printf("\n");
