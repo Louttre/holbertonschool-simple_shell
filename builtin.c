@@ -23,7 +23,7 @@ int check_builtin(char **arg, char *temp)
 void exit_func(char **arg, char *temp)
 {
 	clean(temp, arg);
-	exit(2);
+	exit(1);
 }
 void printenv_func(char **arg, char *temp)
 {

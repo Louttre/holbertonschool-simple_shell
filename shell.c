@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <errno.h>
 void clean(char *a, char **b)
 {
 	free(a);
@@ -20,14 +21,16 @@ int main(int argc, char *argv[])
 	(void)argc, (void)argv;
 	while (loop)
 	{
-		printf("$ ");
+		if (isatty(STDIN_FILENO))
+			printf("$ ");
 		fflush(stdout);
 		input = getline(&temp, &len, stdin);
 		if (input == -1)
 		{
-			if (feof(stdin) && temp)
+			if (temp)
 				free(temp);
-			printf("\n");
+			if (isatty(STDIN_FILENO))
+				printf("\n");
 			exit(1);
 		}
 		if (temp[input - 1] == '\n')
@@ -51,7 +54,6 @@ int main(int argc, char *argv[])
 		args[0] = check_command(args[0]);
 		if (!args[0])
 		{
-			perror("./shell");
 			clean(temp, args);
 			args = NULL;
 			temp = NULL;
@@ -60,7 +62,7 @@ int main(int argc, char *argv[])
 		pid = fork();
 		if (pid == -1)
 		{
-			perror("./shell");
+			perror("fork");
 			clean(temp, args);
 			exit(1);
 		}
@@ -68,7 +70,7 @@ int main(int argc, char *argv[])
 		{
 			if (execve(args[0], args, NULL) == -1)
 			{
-				perror("./shell");
+				perror("execve");
 				clean(temp, args);
 				exit(1);
 			}
