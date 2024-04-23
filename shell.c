@@ -40,7 +40,8 @@ int main(int argc, char *argv[])
 		args = tokenizer(temp, " ");
 		if (!args)
 		{
-			free(temp);
+			if (temp)
+				free(temp);
 			exit(1);
 		}
 		builtin = check_builtin(args, temp);
