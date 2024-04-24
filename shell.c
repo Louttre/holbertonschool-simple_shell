@@ -16,7 +16,7 @@ void handle_input(char **temp, size_t *len)
 		printf("$ ");
 	fflush(stdout);
 	input = getline(temp, len, stdin);
-	if (input == -1 || feof(stdin))
+	if (input == -1)
 	{
 		if (*temp)
 			free(*temp);
