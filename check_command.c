@@ -61,7 +61,7 @@ char *check_paths(char *command, char **argv)
 		}
 		i++;
 	}
-	fprintf(stderr, "%s: %d: %s: %s\n", argv[0], errno, command, "not found");
+	fprintf(stderr, "%s: 1: %s: %s\n", argv[0], command, "not found");
 	clean(cp_path, paths);
 	free(command);
 	return (NULL);
