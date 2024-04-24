@@ -1,5 +1,7 @@
 #include "shell.h"
 
+
+
 /**
  * handle_input - check if the input is coming from the terminal,
  * if so print the prompt, then fetch the input from user through getline(),
@@ -16,7 +18,7 @@ void handle_input(char **temp, size_t *len)
 		printf("$ ");
 	fflush(stdout);
 	input = getline(temp, len, stdin);
-	if (input == -1 || feof(stdin))
+	if (input == -1)
 	{
 		if (*temp)
 			free(*temp);
@@ -36,13 +38,14 @@ void handle_input(char **temp, size_t *len)
  * @args: input that will be checked to see if it's a builtin command
  * @temp: buffer storing the input to be checked and possibly executed
  */
-void execute_builtin(char **args, char *temp)
+int execute_builtin(char **args, char *temp)
 {
 	int builtin;
 
 	builtin = check_builtin(args, temp);
 	if (builtin)
-		return;
+		return (1);
+	return (0);
 }
 
 /**
@@ -111,8 +114,8 @@ int main(int argc, char *argv[])
 			free(temp);
 			exit(1);
 		}
-		execute_builtin(args, temp);
-		child_process(args, temp, argv);
+		if (execute_builtin(args, temp))
+			child_process(args, temp, argv);
 		clean(temp, args);
 		temp = NULL;
 		args = NULL;
