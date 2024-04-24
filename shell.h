@@ -20,8 +20,8 @@ typedef struct
 char **tokenizer(char *, char *);
 void free_tab(char **tab);
 int command_is_path(char *command);
-char *check_paths(char *command);
-char *check_command(char *command);
+char *check_paths(char *command, char **argv);
+char *check_command(char *command, char **argv);
 void clean(char *, char **);
 int check_builtin(char **arg, char *temp);
 void exit_func(char **args, char *temp);
