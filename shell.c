@@ -22,7 +22,7 @@ void handle_input(char **temp, size_t *len)
 			free(*temp);
 		if (isatty(STDIN_FILENO))
 			printf("\n");
-		exit(1);
+		exit(0);
 	}
 	if ((*temp)[input - 1] == '\n')
 		(*temp)[input - 1] = '\0';
