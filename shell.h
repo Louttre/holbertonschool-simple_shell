@@ -32,7 +32,6 @@ typedef struct builtin_struct
 /* PROTOTYPES */
 /*---shell.c---*/
 void child_process(char **args, char *temp, char **argv);
-void clean(char *, char **);
 void execute_builtin(char **args, char *temp);
 void handle_input(char **temp, size_t *len);
 
@@ -48,6 +47,9 @@ void printenv_func(char **arg, char *temp);
 char *check_command(char *command, char **argv);
 char *check_paths(char *command, char **argv);
 int command_is_path(char *command);
+
+/*---memory_handler.c---*/
+void clean(char *, char **);
 void free_tab(char **tab);
 
 /*---tokenizer.c---*/
