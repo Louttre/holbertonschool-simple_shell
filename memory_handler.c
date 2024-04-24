@@ -1,3 +1,5 @@
+#include "shell.h"
+
 /**
  * free_tab - clean a two dimension array
  *
