@@ -36,13 +36,14 @@ void handle_input(char **temp, size_t *len)
  * @args: input that will be checked to see if it's a builtin command
  * @temp: buffer storing the input to be checked and possibly executed
  */
-void execute_builtin(char **args, char *temp)
+int execute_builtin(char **args, char *temp)
 {
 	int builtin;
 
 	builtin = check_builtin(args, temp);
 	if (builtin)
-		return;
+		return (1);
+	return (0);
 }
 
 /**
@@ -111,8 +112,8 @@ int main(int argc, char *argv[])
 			free(temp);
 			exit(0);
 		}
-		execute_builtin(args, temp);
-		child_process(args, temp, argv);
+		if (!execute_builtin(args, temp))
+			child_process(args, temp, argv);
 		clean(temp, args);
 		temp = NULL;
 		args = NULL;
