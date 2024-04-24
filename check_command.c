@@ -1,16 +1,13 @@
 #include "shell.h"
-#include <stdio.h>
-#include <string.h>
-void free_tab(char **tab)
-{
-	int i = 0;
 
-	for (; tab[i]; i++)
-	{
-		free(tab[i]);
-	}
-	free(tab);
-}
+/**
+ * command_is_path - check if the command uses an explicit path syntax
+ * (/usr/bin/ls for example)
+ *
+ * @command: command to be checked
+ *
+ * Return: 1 if command uses an explicit path syntax, 0 otherwise
+ */
 int command_is_path(char *command)
 {
 	if (command[0] == '/')
@@ -18,6 +15,17 @@ int command_is_path(char *command)
 	else
 		return (0);
 }
+
+/**
+ * check_paths - search the command inside the PATH, and if so return the
+ * precise path of the command
+ *
+ * @command: command to be checked inside the PATH
+ * @argv: array of arguments sent by main()
+ *
+ * Return: if the path of the command is checked, returns said path,
+ * returns NULL otherwise
+ */
 char *check_paths(char *command, char **argv)
 {
 	char *path, *cp_path, **paths = NULL;
@@ -34,7 +42,7 @@ char *check_paths(char *command, char **argv)
 		free(cp_path);
 		return (NULL);
 	}
-	while(paths[i])
+	while (paths[i])
 	{
 		check_path = malloc(strlen(paths[i]) + strlen(command) + 2);
 		if (!check_path)
@@ -49,7 +57,7 @@ char *check_paths(char *command, char **argv)
 		{
 			clean(cp_path, paths);
 			free(command);
-			return(check_path);
+			return (check_path);
 		}
 		i++;
 	}
@@ -58,16 +66,29 @@ char *check_paths(char *command, char **argv)
 	free(command);
 	return (NULL);
 }
+
+/**
+ * check_command - Checks if the command is either an explicit path, or if
+ * the command executable can be found inside the PATH environnment variable
+ *
+ * @command: command to be checked
+ * @argv: array containing the arguments sent by main()
+ *
+ * Return: command if the command is a valid explicit path, right_path if
+ * the command has a valid executable found inside the PATH variable,
+ * NULL otherwise
+ */
 char *check_command(char *command, char **argv)
 {
 	char *right_path;
-	
+
 	if (!command)
 		return (NULL);
 	if (command_is_path(command) == 1)
 		return (command);
-	else if ((right_path = check_paths(command, argv)))
+	right_path = check_paths(command, argv);
+	if (right_path)
 		return (right_path);
-	else
-		return (NULL);
+	return (NULL);
 }
+
