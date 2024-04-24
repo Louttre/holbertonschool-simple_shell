@@ -1,9 +1,15 @@
 #include "shell.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
 
+/**
+ * tokenizer - Parses an input string and transform it
+ * into an array of tokens.
+ *
+ * @temp: buffer containing the string to be tokenized
+ * @delim: deliminator between tokens to be removed during
+ * tokenization
+ *
+ * Return: args[], an array filled with the input tokens
+ */
 char **tokenizer(char *temp, char *delim)
 {
 	int i = 0;
@@ -12,9 +18,9 @@ char **tokenizer(char *temp, char *delim)
 
 	args = malloc(sizeof(char *) * MAX_TOK);
 	if (!args || !temp || !delim)
-		return (NULL);	
+		return (NULL);
 	tokenized = strtok(temp, delim);
-	while(tokenized)
+	while (tokenized)
 	{
 		args[i] = strdup(tokenized);
 		if (args[i] == NULL)

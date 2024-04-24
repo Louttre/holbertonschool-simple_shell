@@ -1,5 +1,14 @@
 #include "shell.h"
-#include <string.h>
+
+/**
+ * _getenv - Search for a specific environnement variable
+ * and returns it if found.
+ *
+ * @env_variable: environnement variable to be searched
+ *
+ * Return: The environnement variable if found in the environ
+ * global variable, NULL otherwise.
+ */
 char *_getenv(char *env_variable)
 {
 	char *temp;
@@ -21,7 +30,7 @@ char *_getenv(char *env_variable)
 			free(temp);
 			return (cp_env[i]);
 		}
-                else
+		else
 		{
 			free(temp);
 			temp = NULL;
@@ -30,3 +39,4 @@ char *_getenv(char *env_variable)
 	}
 	return (NULL);
 }
+
