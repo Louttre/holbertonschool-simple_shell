@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * **tokenizer - Parses an input string and transform it
+ * tokenizer - Parses an input string and transform it
  * into an array of tokens.
  *
  * @temp: buffer containing the string to be tokenized
