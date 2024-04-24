@@ -65,7 +65,7 @@ void child_process(char **args, char *temp, char **argv)
 	{
 		perror("fork");
 		clean(temp, args);
-		exit(1);
+		exit(0);
 	}
 	else if (pid == 0)
 	{
@@ -73,7 +73,7 @@ void child_process(char **args, char *temp, char **argv)
 		{
 			fprintf(stderr, "%s: %d: %s", argv[0], errno, strerror(errno));
 			clean(temp, args);
-			exit(1);
+			exit(0);
 		}
 	}
 	else
@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
 		if (!args)
 		{
 			free(temp);
-			exit(1);
+			exit(0);
 		}
 		execute_builtin(args, temp);
 		child_process(args, temp, argv);
