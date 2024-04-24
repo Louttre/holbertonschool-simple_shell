@@ -55,6 +55,7 @@ char *check_paths(char *command)
 	}
 	fprintf(stderr, "./hsh: %d: %s: %s\n", errno, command, "not found");
 	clean(cp_path, paths);
+	free(command);
 	return (NULL);
 }
 char *check_command(char *command)
