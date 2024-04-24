@@ -18,7 +18,7 @@ int command_is_path(char *command)
 	else
 		return (0);
 }
-char *check_paths(char *command)
+char *check_paths(char *command, char **argv)
 {
 	char *path, *cp_path, **paths = NULL;
 	char *check_path = NULL;
@@ -53,12 +53,12 @@ char *check_paths(char *command)
 		}
 		i++;
 	}
-	fprintf(stderr, "./hsh: %d: %s: %s\n", errno, command, "not found");
+	fprintf(stderr, "%s: %d: %s: %s\n", argv[0], errno, command, "not found");
 	clean(cp_path, paths);
 	free(command);
 	return (NULL);
 }
-char *check_command(char *command)
+char *check_command(char *command, char **argv)
 {
 	char *right_path;
 	
@@ -66,7 +66,7 @@ char *check_command(char *command)
 		return (NULL);
 	if (command_is_path(command) == 1)
 		return (command);
-	else if ((right_path = check_paths(command)))
+	else if ((right_path = check_paths(command, argv)))
 		return (right_path);
 	else
 		return (NULL);

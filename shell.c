@@ -8,7 +8,7 @@
 
 void handle_input(char **temp, size_t *len);
 void execute_builtin(char **args, char *temp);
-void child_process(char **args, char *temp);
+void child_process(char **args, char *temp, char **argv);
 
 int main(int argc, char *argv[])
 {
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
             exit(1);
         }
         execute_builtin(args, temp);
-        child_process(args, temp);
+        child_process(args, temp, argv);
         clean(temp, args);
 	temp = NULL;
 	args = NULL;
@@ -65,11 +65,11 @@ void execute_builtin(char **args, char *temp)
         return;
 }
 
-void child_process(char **args, char *temp)
+void child_process(char **args, char *temp, char **argv)
 {
     pid_t pid;
 
-    args[0] = check_command(args[0]);
+    args[0] = check_command(args[0], argv);
     if (!args[0])
         return;
     pid = fork();
