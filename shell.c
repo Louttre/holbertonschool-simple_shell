@@ -24,7 +24,7 @@ void handle_input(char **temp, size_t *len)
 			free(*temp);
 		if (isatty(STDIN_FILENO))
 			printf("\n");
-		exit(1);
+		exit(0);
 	}
 	if ((*temp)[input - 1] == '\n')
 		(*temp)[input - 1] = '\0';
@@ -68,7 +68,7 @@ void child_process(char **args, char *temp, char **argv)
 	{
 		perror("fork");
 		clean(temp, args);
-		exit(1);
+		exit(0);
 	}
 	else if (pid == 0)
 	{
@@ -76,7 +76,7 @@ void child_process(char **args, char *temp, char **argv)
 		{
 			fprintf(stderr, "%s: %d: %s", argv[0], errno, strerror(errno));
 			clean(temp, args);
-			exit(1);
+			exit(0);
 		}
 	}
 	else
@@ -112,9 +112,9 @@ int main(int argc, char *argv[])
 		if (!args)
 		{
 			free(temp);
-			exit(1);
+			exit(0);
 		}
-		if (execute_builtin(args, temp))
+		if (!execute_builtin(args, temp))
 			child_process(args, temp, argv);
 		clean(temp, args);
 		temp = NULL;
