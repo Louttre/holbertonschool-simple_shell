@@ -1,5 +1,7 @@
 #include "shell.h"
 
+
+
 /**
  * handle_input - check if the input is coming from the terminal,
  * if so print the prompt, then fetch the input from user through getline(),
