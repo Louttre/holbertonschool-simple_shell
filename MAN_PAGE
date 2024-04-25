@@ -1,0 +1,70 @@
+HSH(1)                       General Commands Manual                      HSH(1)
+
+NAME
+       hsh - holberton simple shell
+
+SYNOPSIS
+       hsh [command]
+
+DESCRIPTION
+       hsh is a simple shell program that allows users to execute commands
+       located in the PATH environment variable and some built-in commands.
+
+ENVIRONMENT
+       PATH   A colon-separated list of directories in which the shell
+              searches for executable files. If a command is not found in the
+              current directory, the shell looks for it in each directory
+              listed in PATH, in the order they are listed.
+
+OPTIONS
+       command
+              The command to be executed by the shell. If no command is
+              provided, the shell starts in interactive mode.
+
+INTERACTIVE MODE
+       When started without a command, hsh enters interactive mode. In this
+       mode, the shell displays a prompt and waits for the user to enter a
+       command. After executing the command, the shell displays the result
+       and waits for the next command.
+
+       To exit the shell, the user can type 'exit' or press Ctrl + D.
+
+BUILT-IN COMMANDS
+       The following built-in commands are supported:
+
+       env    Display the current environment variables.
+
+       exit   Exit the shell.
+
+EXECUTING PROGRAMS IN PATH
+       If a command is not a built-in command, hsh searches for the command
+       in the directories listed in the PATH environment variable or as a path
+       to the executable. If the command is found, hsh executes it. Otherwise,
+       it displays an error message indicating that the command was not found.
+
+COMPILATION
+       Your shell can be compiled using the following command:
+
+       gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+              This command compiles all C source files (`*.c`) in the current
+              directory into an executable named `hsh`, applying strict
+              compilation flags to ensure code quality and adherence to the
+              GNU89 C standard.
+
+EXAMPLES
+       $ ls
+       Display the contents of the current directory using the 'ls' command.
+
+       $ echo "Hello, Holberton!"
+       Display the string "Hello, Holberton!" using the 'echo' command.
+       
+AUTHOR
+       Written by Bouillée Aurélien and Rueda Johan.
+
+REPORTING BUGS
+       Please report bugs to 8864@holbertonstudents.com.
+
+COPYRIGHT
+       This is free software: you are free to change and redistribute it.
+       There is NO WARRANTY, to the extent permitted by law.
+
