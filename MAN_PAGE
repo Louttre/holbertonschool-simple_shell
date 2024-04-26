@@ -9,6 +9,8 @@ SYNOPSIS
 DESCRIPTION
        hsh is a simple shell program that allows users to execute commands
        located in the PATH environment variable and some built-in commands.
+       Please note that some features available in other shells may not be
+       supported by hsh.
 
 ENVIRONMENT
        PATH   A colon-separated list of directories in which the shell
