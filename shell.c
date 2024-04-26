@@ -56,7 +56,8 @@ int execute_builtin(char **args, char *temp)
  * @args: tokenized input to be checked and executed
  * @temp: buffer containing the input
  * @argv: array containing outside arguments
- * Return: 1 if an error occurs, 0 or status value
+ * Return: 1 if an error occurs, 0 if it ends normally
+ * othertwise returns status value
  */
 int child_process(char **args, char *temp, char **argv)
 {
