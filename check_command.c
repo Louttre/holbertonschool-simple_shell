@@ -39,8 +39,10 @@ char *check_paths(char *command, char **argv)
 	int i = 0;
 
 	path = _getenv("PATH");
+	if (!path)
+		return (NULL);
 	cp_path = strdup(path);
-	if (!path || !cp_path)
+	if (!cp_path)
 		return (NULL);
 	paths = tokenizer(cp_path, ":");
 	if (!paths)
@@ -101,6 +103,7 @@ char *check_command(char *command, char **argv)
 	right_path = check_paths(command, argv);
 	if (right_path)
 		return (right_path);
+	fprintf(stderr, "%s: 1: %s: %s\n", argv[0], command, "not found");
 	return (NULL);
 }
 
