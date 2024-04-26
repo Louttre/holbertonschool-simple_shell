@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
 		}
 		if (!execute_builtin(args, temp))
 		{
-			retcode=child_process(args, temp, argv);
+			retcode = child_process(args, temp, argv);
 			if (!isatty(STDIN_FILENO))
 				return (retcode);			
 		}
