@@ -62,20 +62,31 @@ src="https://upload.wikimedia.org/wikipedia/commons/7/79/Breezeicons-apps-48-sub
 
 ## :floppy_disk: <span id="prototype">Prototypes</span>
 
-- `int main(void);` : main function of the Simple Shell (entry point).
+### shell.c
+- `int main(int argc, char *argv[])` : main function of the Simple Shell (entry point).
+- `void child_process(char **args, char *temp, char **argv)`: handle child process and errors
+- `void execute_builtin(char **args, char *temp)`: uses `check_builtin()`to execute builtin commands
+- `void handle_input(char **temp, size_t *len)`: checks if the input is coming from a terminal with the `isatty()` function
 
-- `char **build_args(char *cmd);` : initialize an array of strings containing command arguments.
-- `char *build_cmd_path(char *cmd, char *path);` : builds path of the executable from given command string.
+### _getenv.c
+- `char *_getenv(char *env_variable)`: our own implementation of `getenv()`, to search for specific environnement variables
 
-- `char *_getenv(const char *variable_name);` : get the value of an environment variable.
-- `char *get_username(void);` : retrieve the username associated with the environment.
-- `void print_env(char **environ);` : print the environment variables.
+### builtin.c
+- `int check_builtin(char **arg, char *temp)`: checks if an input is a builtin command and if so executes the builtin
+- `void exit_func(char **args, char *temp)`: builtin command exiting the shell after cleaning the memory
+- `void printenv_func(char **arg, char *temp)`: builtin command printing the current environnement of the process
 
-- `int _exec(char **args);` : executes a command according to arguments and environment, and handles errors.
+### check_command.c
+- `char *check_command(char *command, char **argv)`: Checks if the command is either an explicit path, or if  the command executable can be found inside the PATH environnment variable
+- `char *check_paths(char *command, char **argv)`: Search the command inside the PATH, and if so return the precise path of the command
+- `int command_is_path(char *command)`: Checks if the command uses an explicit path syntax (/usr/bin/ls for example)
 
-- `char *get_current_directory(void);` : retrieve the current directory.
-- `void print_file(const char *filename);` : print content of a file.
-- `int handle_special_cmd(char **args, char *user_input);` : handles special commands like `env`, `exit`...
+### memory_handler.c
+- `void clean(char *, char **)`: clean one dimension buffers and two dimensions arrays
+- `void free_tab(char **tab)`: clean a two dimension array
+
+### tokenizer.c
+- `char **tokenizer(char *, char *)`: Parses an input string and transform it into an array of tokens used as commands
 
 ## :clipboard: <span id="requirements">Requirements</span>
 - Allowed editors: **vim**, **emacs** 
