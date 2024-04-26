@@ -74,7 +74,7 @@ void child_process(char **args, char *temp, char **argv)
 	{
 		if (execve(args[0], args, NULL) == -1)
 		{
-			fprintf(stderr, "%s: %d: %s", argv[0], errno, strerror(errno));
+			fprintf(stderr, "%s: 1: %s", argv[0], strerror(errno));
 			clean(temp, args);
 			exit(1);
 		}
