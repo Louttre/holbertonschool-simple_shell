@@ -31,7 +31,7 @@ typedef struct builtin_struct
 
 /* PROTOTYPES */
 /*---shell.c---*/
-void child_process(char **args, char *temp, char **argv);
+int child_process(char **args, char *temp, char **argv);
 int execute_builtin(char **args, char *temp);
 void handle_input(char **temp, size_t *len);
 
