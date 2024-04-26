@@ -7,7 +7,7 @@
  * @command: command to be checked
  *
  * Return: 1 if command uses an explicit path syntax, 
- * 	   -1 if the command is a wrong PATH, 0 otherwise.
+ *	-1 if the command is a wrong PATH, 0 otherwise.
  */
 int command_is_path(char *command)
 {
