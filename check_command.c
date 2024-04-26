@@ -1,5 +1,13 @@
 #include "shell.h"
-
+/**
+ * path_finding - check if the command is a valid path to an executable
+ * (/usr/bin/ls for example)
+ *
+ * @command: command to be checked
+ *
+ * Return: 1 if command uses an explicit path syntax,
+ * -1 if the command is a wrong PATH
+ */
 int path_finding(char *command)
 {
         struct stat file_stat;
