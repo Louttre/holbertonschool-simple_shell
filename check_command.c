@@ -21,24 +21,6 @@ int path_finding(char *command)
                 return (-1);
         }
 }
-/**
- * command_is_path - check if the command uses an explicit path syntax
- * (/usr/bin/ls for example)
- *
- * @command: command to be checked
- *
- * Return: 1 if command uses an explicit path syntax,
- * -1 if the command is a wrong PATH, 0 otherwise.
- */
-int command_is_path(char *command)
-{
-        if (command[0] == '/' || command[0] == '.')
-        {
-                return (path_finding(command));
-        }
-        else
-                return (0);
-}
 
 /**
  * command_is_path - check if the command uses an explicit path syntax
