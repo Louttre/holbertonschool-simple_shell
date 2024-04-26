@@ -37,7 +37,6 @@ char *check_paths(char *command, char **argv)
 	char *path, *cp_path, **paths = NULL;
 	char *check_path = NULL;
 	int i = 0;
-	(void)argv;
 
 	path = _getenv("PATH");
 	if (!path)
