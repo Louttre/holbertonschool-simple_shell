@@ -64,13 +64,13 @@ int child_process(char **args, char *temp, char **argv)
 
         args[0] = check_command(args[0], argv);
         if (!args[0])
-                return (0);
+            return (1);
         pid = fork();
         if (pid == -1)
         {
                 perror("fork");
                 clean(temp, args);
-                exit(1);
+                return(1);
         }
         else if (pid == 0)
         {
@@ -103,12 +103,14 @@ int child_process(char **args, char *temp, char **argv)
  * @argc: number of line command arguments sent to the program from outside
  * @argv: array of line command arguments
  *
- * Return: 0 at the end of the loop
+ * Return: retcode at the end of the loop
  */
 int main(int argc, char *argv[])
 {
 	size_t len = 0;
 	char *temp = NULL, **args = NULL;
+	int retcode = 0;
+
 	(void)argc, (void)argv;
 
 	while (1)
@@ -121,10 +123,14 @@ int main(int argc, char *argv[])
 			exit(0);
 		}
 		if (!execute_builtin(args, temp))
-			child_process(args, temp, argv);
+		{
+			retcode=child_process(args, temp, argv);
+			if (!isatty(STDIN_FILENO))
+				return (retcode);			
+		}
 		clean(temp, args);
 		temp = NULL;
 		args = NULL;
 	}
-	return (0);
+	return (retcode);
 }
