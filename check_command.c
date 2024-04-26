@@ -53,10 +53,7 @@ int command_is_path(char *command)
 {
 	if (command[0] == '/' || command[0] == '.')
 	{
-		if (access(command, X_OK) == 0)
-			return (1);
-		else
-			return (-1);
+		return (path_finding(command));
 	}
 	else
 		return (0);
