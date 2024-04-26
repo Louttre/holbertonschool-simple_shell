@@ -59,7 +59,7 @@ EXAMPLES
 
        $ echo "Hello, Holberton!"
        Display the string "Hello, Holberton!" using the 'echo' command.
-       
+
 AUTHOR
        Written by Bouillée Aurélien and Rueda Johan.
 
