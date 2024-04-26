@@ -37,6 +37,7 @@ void handle_input(char **temp, size_t *len)
  *
  * @args: input that will be checked to see if it's a builtin command
  * @temp: buffer storing the input to be checked and possibly executed
+ * Return: 1 if a builtin command is found, 0 otherwise
  */
 int execute_builtin(char **args, char *temp)
 {
@@ -60,7 +61,7 @@ void child_process(char **args, char *temp, char **argv)
 {
 	pid_t pid;
 
-	args[0] = check_command(args[0], argv);
+	args[0] = check_command(args[0], argv, args, temp);
 	if (!args[0])
 		return;
 	pid = fork();

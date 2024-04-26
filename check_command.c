@@ -6,8 +6,8 @@
  *
  * @command: command to be checked
  *
- * Return: 1 if command uses an explicit path syntax, 
- * 	   -1 if the command is a wrong PATH, 0 otherwise.
+ * Return: 1 if command uses an explicit path syntax,
+ * -1 if the command is a wrong PATH, 0 otherwise.
  */
 int command_is_path(char *command)
 {
@@ -28,21 +28,24 @@ int command_is_path(char *command)
  *
  * @command: command to be checked inside the PATH
  * @argv: array of arguments sent by main()
+ * @args: input that will be checked to see if it's a builtin command
+ * @temp: buffer storing the input to be checked and possibly executed
  *
  * Return: if the path of the command is checked, returns said path,
  * returns NULL otherwise
  */
-char *check_paths(char *command, char **argv)
+char *check_paths(char *command, char **argv, char **args, char *temp)
 {
 	char *path, *cp_path, **paths = NULL;
 	char *check_path = NULL;
 	int i = 0;
 
-	path = _getenv("PATH");
+	path = _getenv("PATH1");
 	if (!path)
 	{
 		fprintf(stderr, "%s: 127: %s: %s\n", argv[0], command, "not found");
-		return (NULL);
+		clean(temp, args);
+		exit(127);
 	}
 	cp_path = strdup(path);
 	if (!cp_path)
@@ -84,12 +87,14 @@ char *check_paths(char *command, char **argv)
  *
  * @command: command to be checked
  * @argv: array containing the arguments sent by main()
+ * @args: input that will be checked to see if it's a builtin command
+ * @temp: buffer storing the input to be checked and possibly executed
  *
  * Return: command if the command is a valid explicit path, right_path if
  * the command has a valid executable found inside the PATH variable,
  * NULL otherwise
  */
-char *check_command(char *command, char **argv)
+char *check_command(char *command, char **argv, char **args, char *temp)
 {
 	char *right_path;
 
@@ -103,9 +108,8 @@ char *check_command(char *command, char **argv)
 		free(command);
 		return (NULL);
 	}
-	right_path = check_paths(command, argv);
+	right_path = check_paths(command, argv, args, temp);
 	if (right_path)
 		return (right_path);
 	return (NULL);
 }
-

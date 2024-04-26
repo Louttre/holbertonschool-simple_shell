@@ -44,8 +44,8 @@ void exit_func(char **args, char *temp);
 void printenv_func(char **arg, char *temp);
 
 /*---check_command.c---*/
-char *check_command(char *command, char **argv);
-char *check_paths(char *command, char **argv);
+char *check_command(char *command, char **argv, char **args, char *temp);
+char *check_paths(char *command, char **argv, char **args, char *temp);
 int command_is_path(char *command);
 
 /*---memory_handler.c---*/
