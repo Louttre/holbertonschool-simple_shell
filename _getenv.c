@@ -15,7 +15,7 @@ char *_getenv(char *env_variable)
 	char **cp_env = environ;
 	int i = 0, j;
 
-	while (cp_env)
+	while (cp_env[i])
 	{
 		j = 0;
 		temp = malloc(sizeof(char) * BUF);

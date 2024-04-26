@@ -6,12 +6,18 @@
  *
  * @command: command to be checked
  *
- * Return: 1 if command uses an explicit path syntax, 0 otherwise
+ * Return: 1 if command uses an explicit path syntax, 
+ * 	   -1 if the command is a wrong PATH, 0 otherwise.
  */
 int command_is_path(char *command)
 {
 	if (command[0] == '/')
-		return (1);
+	{
+		if (access(command, X_OK) == 0)
+			return (1);
+		else
+			return (-1);
+	}
 	else
 		return (0);
 }
@@ -33,8 +39,10 @@ char *check_paths(char *command, char **argv)
 	int i = 0;
 
 	path = _getenv("PATH");
+	if (!path)
+		return (NULL);
 	cp_path = strdup(path);
-	if (!path || !cp_path)
+	if (!cp_path)
 		return (NULL);
 	paths = tokenizer(cp_path, ":");
 	if (!paths)
@@ -86,9 +94,16 @@ char *check_command(char *command, char **argv)
 		return (NULL);
 	if (command_is_path(command) == 1)
 		return (command);
+	else if (command_is_path(command) < 0)
+	{
+		fprintf(stderr, "%s: 1: %s: %s\n", argv[0], command, "not found");
+		free(command);
+		return (NULL);
+	}
 	right_path = check_paths(command, argv);
 	if (right_path)
 		return (right_path);
+	fprintf(stderr, "%s: 1: %s: %s\n", argv[0], command, "not found");
 	return (NULL);
 }
 

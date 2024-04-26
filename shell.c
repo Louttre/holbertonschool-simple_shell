@@ -68,7 +68,7 @@ void child_process(char **args, char *temp, char **argv)
 	{
 		perror("fork");
 		clean(temp, args);
-		exit(0);
+		exit(1);
 	}
 	else if (pid == 0)
 	{
@@ -76,7 +76,7 @@ void child_process(char **args, char *temp, char **argv)
 		{
 			fprintf(stderr, "%s: %d: %s", argv[0], errno, strerror(errno));
 			clean(temp, args);
-			exit(0);
+			exit(1);
 		}
 	}
 	else
