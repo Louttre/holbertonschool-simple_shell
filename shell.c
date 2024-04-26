@@ -37,6 +37,7 @@ void handle_input(char **temp, size_t *len)
  *
  * @args: input that will be checked to see if it's a builtin command
  * @temp: buffer storing the input to be checked and possibly executed
+ * Return: 1 if a builtin command is found, 0 otherwise
  */
 int execute_builtin(char **args, char *temp)
 {
