@@ -11,7 +11,7 @@
  */
 int command_is_path(char *command)
 {
-	if (command[0] == '/')
+	if (command[0] == '/' || command[0] == '.')
 	{
 		if (access(command, X_OK) == 0)
 			return (1);
@@ -40,7 +40,10 @@ char *check_paths(char *command, char **argv)
 
 	path = _getenv("PATH");
 	if (!path)
+	{
+		fprintf(stderr, "%s: 127: %s: %s\n", argv[0], command, "not found");
 		return (NULL);
+	}
 	cp_path = strdup(path);
 	if (!cp_path)
 		return (NULL);
