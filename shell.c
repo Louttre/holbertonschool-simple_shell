@@ -57,33 +57,38 @@ int execute_builtin(char **args, char *temp)
  * @temp: buffer containing the input
  * @argv: array containing outside arguments
  */
-void child_process(char **args, char *temp, char **argv)
+int child_process(char **args, char *temp, char **argv)
 {
-	pid_t pid;
+        pid_t pid;
+        int status;
 
-	args[0] = check_command(args[0], argv);
-	if (!args[0])
-		return;
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		clean(temp, args);
-		exit(1);
-	}
-	else if (pid == 0)
-	{
-		if (execve(args[0], args, NULL) == -1)
-		{
-			fprintf(stderr, "%s: 1: %s", argv[0], strerror(errno));
-			clean(temp, args);
-			exit(1);
-		}
-	}
-	else
-	{
-		wait(NULL);
-	}
+        args[0] = check_command(args[0], argv);
+        if (!args[0])
+                return (0);
+        pid = fork();
+        if (pid == -1)
+        {
+                perror("fork");
+                clean(temp, args);
+                exit(1);
+        }
+        else if (pid == 0)
+        {
+                if (execve(args[0], args, NULL) == -1)
+                {
+                        fprintf(stderr, "%s: 1: %s", argv[0], strerror(errno));
+                        clean(temp, args);
+                        exit(127);
+                }
+        }
+        else
+        {
+                wait(&status);
+                if (WIFEXITED(status))
+                        status = WEXITSTATUS(status);
+                return (status);
+        }
+        return (0);
 }
 
 
