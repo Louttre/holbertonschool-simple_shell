@@ -37,6 +37,7 @@ char *check_paths(char *command, char **argv)
 	char *path, *cp_path, **paths = NULL;
 	char *check_path = NULL;
 	int i = 0;
+	(void)argv;
 
 	path = _getenv("PATH");
 	if (!path)
@@ -103,7 +104,6 @@ char *check_command(char *command, char **argv)
 	right_path = check_paths(command, argv);
 	if (right_path)
 		return (right_path);
-	fprintf(stderr, "%s: 1: %s: %s\n", argv[0], command, "not found");
 	return (NULL);
 }
 
