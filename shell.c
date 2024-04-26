@@ -128,7 +128,10 @@ int main(int argc, char *argv[])
 		{
 			retcode = child_process(args, temp, argv);
 			if (!isatty(STDIN_FILENO))
+			{
+				clean(temp, args);
 				return (retcode);
+			}
 		}
 		clean(temp, args);
 		temp = NULL;
